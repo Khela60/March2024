@@ -1,1 +1,30 @@
+public class BaseTest {
+	public Logger logger = Logger.getLogger(BaseTest.class.getName());
+	public static WebDriver driver = null;
+	public static LoadExternalDataUtility dbCap = null;
+	
+	@BeforeSuite
+	public void LaunchBrowser () {
+		
+		//LoadTestData
+		try {
+			dbCap = new LoadExternalDataUtility("src/test/resources/testData/DemoExceFileForTestData.xlsx");
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		 logger.info("Launching Chrome Driver");
+		 System.setProperty("webdriver.chrome.driver", "C:\\Users\\Hp\\OneDrive\\Desktop\\Drivers\\chromedriver114.exe");	       
+	 	 ChromeOptions options = new ChromeOptions();
+	     options.addArguments("--remote-allow-origins=*");
+	 	
+	     // Instantiate a ChromeDriver class.     
+	     driver = new ChromeDriver(options);
+	     logger.info("Chrome Driver - Launched");
+	     	     
+	     driver.manage().window().maximize();
+	     logger.info("Chrome Maximized");
 
+	}
+	
